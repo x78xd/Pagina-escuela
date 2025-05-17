@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secundaria</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #1a5276;
+            --secondary-color: #2e86c1;
+            --accent-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            overflow-x: hidden;
+        }
+
+        /* Barra de navegación */
+        nav {
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 0.5rem 5%;
+            background-color: rgba(26, 82, 118, 0.95);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+            transition: height 0.3s ease;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 1001;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('483597169_4073293369588728_7932476308164122873_n (1).webp') no-repeat center center/cover;
+            height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-top: 70px;
+        }
+
+        .hero-content {
+            max-width: 90%;
+            padding: 2rem;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: #e67e22;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Secciones */
+        section {
+            padding: 3rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            font-size: 1.8rem;
+        }
+
+        .section-title:after {
+            content: "";
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Sobre Nosotros */
+        .about {
+            background-color: white;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 280px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s ease;
+            display: block;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Oferta Académica */
+        .programs {
+            background-color: var(--light-color);
+        }
+
+        .program-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .program-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .program-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .program-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .program-content {
+            padding: 1.5rem;
+        }
+
+        .program-content h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        /* Actividades Extracurriculares */
+        .activities {
+            background-color: white;
+        }
+
+        .activity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .activity-item {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        .activity-item:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .activity-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .activity-item:hover .activity-icon {
+            color: var(--accent-color);
+        }
+
+        /* Facebook Feed */
+        .facebook-feed {
+            background-color: var(--light-color);
+            text-align: center;
+        }
+
+        .facebook-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .facebook-posts {
+            display: flex; /* Arrange posts side by side */
+            justify-content: space-between; /* Space between posts */
+            gap: 2rem; /* Add spacing between posts */
+            margin-top: 2rem;
+        }
+
+        .facebook-post {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            width: calc(50% - 1rem); /* Adjust width for two posts */
+            position: relative;
+            padding-bottom: 56.25%; /* Maintain 16:9 aspect ratio */
+            height: 0;
+        }
+
+        .facebook-post iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .facebook-post:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Vision y Misión Section */
+        .vision-mision {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 3rem 5%;
+            background-color: var(--light-color);
+        }
+
+        .vision, .mision {
+            flex: 1;
+            text-align: center;
+        }
+
+        .vision h2, .mision h2 {
+            font-size: 1.5rem; /* Smaller than the existing section titles */
+            margin-bottom: 1rem;
+        }
+
+        .vision p, .mision p {
+            font-size: 1rem; /* Smaller than the existing paragraph text */
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        .logo-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo1 {
+            max-width: 100%;
+            height: auto;
+            padding: 1rem; /* Optional: Add padding for the logo */
+        }
+
+        /* Calendario */
+        .calendario {
+            background-color: var(--light-color);
+            padding: 3rem 5%;
+            text-align: center;
+        }
+        
+        .calendario-container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+        
+        .calendario-imagen {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            margin-top: 2rem;
+        }
+        
+        .calendario-imagen img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .calendario-imagen:hover img {
+            transform: scale(1.03);
+        }
+        
+        .calendario-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            padding: 2rem;
+            color: white;
+            text-align: center;
+        }
+        
+        .calendario-overlay h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .calendario-overlay p {
+            font-size: 1.2rem;
+        }
+
+        /* Contacto */
+        .contact {
+            background-color: white;
+        }
+
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .mapa {
+            flex: 1;
+            min-width: 280px;
+            height: 300px; /* Altura fija más pequeña */
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .mapa iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 5% 1rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            position: relative;
+            font-size: 1.3rem;
+        }
+
+        .footer-column h3:after {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-color);
+            bottom: -10px;
+            left: 0;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #f0a500;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #bdc3c7;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .animate {
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Media queries mejorados */
+        @media (max-width: 992px) {
+            section {
+                padding: 2.5rem 4%;
+            }
+            
+            .hero-content h2 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .mapa {
+                height: 280px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 1rem 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .logo img {
+                height: 40px;
+            }
+
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero {
+                height: 60vh;
+                margin-top: 60px;
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            
+            section {
+                padding: 2rem 3%;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .about-text, .about-image {
+                flex: 100%;
+            }
+            
+            .about-image {
+                margin-top: 1.5rem;
+                height: auto;
+            }
+            
+            .activity-item {
+                padding: 1.5rem;
+            }
+            
+            .calendario-overlay h3 {
+                font-size: 1.4rem;
+            }
+            
+            .calendario-overlay p {
+                font-size: 0.9rem;
+            }
+            
+            .facebook-post {
+                max-width: 100%;
+                padding-bottom: 80%; /* Más cuadrado para móvil */
+            }
+            
+            .contact-info, .mapa {
+                flex: 100%;
+            }
+            
+            .mapa {
+                margin-top: 1.5rem;
+                height: 220px; /* Más pequeño en móvil */
+            }
+            
+            .footer-column {
+                flex: 100%;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo img {
+                height: 35px;
+            }
+            
+            .logo h1 {
+                font-size: 1.2rem;
+                display: none;
+            }
+            
+            .hero {
+                height: 50vh;
+            }
+            
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.3rem;
+            }
+            
+            section {
+                padding: 1.5rem 3%;
+            }
+            
+            .activity-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .mapa {
+                height: 200px; /* Aún más pequeño en móviles pequeños */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav id="navbar">
+        <div class="logo">
+            <img src="unnamed (1)(1).webp" alt="Logo Escuela">
+        </div>
+        <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li> 
+            <li><a href="#calendario">Calendario</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Sección Hero -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h2>Sec. Fed. José María Morelos & Pavón</h2>
+        </div>
+    </section>
+
+    <!-- Vision y Misión -->
+    <section class="vision-mision" id="vision-mision">
+        <div class="vision">
+            <h2>Vision</h2>
+            <p>Ser una comunidad de aprendizaje donde sse brindan una educacion integral y humanista como marco del desarrolllo de las capacidades de nuestros estudiantes en un ambiente seguro donde se pontencian los valores y respetan sus caracteristicas individuales y colectivas formando alumnos creativos y reflexivos con una vision emprendedora para el exito.</p>
+        </div>
+        <div class="logo-container">
+            <img src="unnamed (1)(1).webp(1).webp" alt="Logo Escuela" class="logo1">
+        </div>
+        <div class="mision">
+            <h2>Misión</h2>
+            <p>Ser una comunidad de aprendizaje donde sse brindan una educacion integral y humanista como marco del desarrolllo de las capacidades de nuestros estudiantes en un ambiente seguro donde se pontencian los valores y respetan sus caracteristicas individuales y colectivas formando alumnos creativos y reflexivos con una vision emprendedora para el exito.</p>
+        </div>
+    </section>
+
+    
+    <section class="calendario" id="calendario">
+        <h2 class="section-title">Calendario Escolar</h2>
+        <div class="calendario-container fade-in">
+            <div class="calendario-imagen">
+                <img src="calendario-escolar-2024-2025-1024x742.jpg.webp" alt="Calendario Escolar">
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- Contacto -->
+    <section class="contact" id="contacto">
+        <h2 class="section-title">Contacto</h2>
+        <div class="contact-container">
+            <div class="contact-info fade-in">
+                <h3>Información de Contacto</h3>
+                <p><strong>Dirección:</strong> Avenida Patria L. Poniente s/n,</p>
+                <p><strong>Teléfono:</strong> 375 758 0629</p>
+                <p><strong>Email:</strong> secundaria-1-ameca@hotmail.com</p>
+            </div>
+            <div class="mapa fade-in">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d934.0578603906797!2d-104.04169158489927!3d20.5377092476188!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8426763828d1c289%3A0xdb4d9e0b359487bc!2sSecudaria%20Secundaria%20Gral.%20Jose%20Ma.%20Morelos%20Y%20Pavon!5e0!3m2!1ses-419!2smx!4v1742670254741!5m2!1ses-419!2smx" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Sec. Fed. José María Morelos & Pavón</h3>
+                <p>Formando líderes del mañana con educación de calidad y valores sólidos.</p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/sec.jose.maria.morelos/?locale=es_LA" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Enlaces Rápidos</h3>
+                <ul class="footer-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#sobre-nosotros">Sobre Nosotros</a></li>
+                    <li><a href="#actividades">Actividades</a></li>
+                    <li><a href="#facebook-feed">Noticias</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Sec. Fed. José María Morelos & Pavón. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Menú responsive mejorado
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            // Cambiar icono del menú
+            const icon = menuToggle.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Cerrar menú al hacer clic en un enlace
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const icon = menuToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Animation on scroll with better performance
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeElems = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            fadeElems.forEach(elem => {
+                observer.observe(elem);
+            });
+        });
+    </script>
+</body>
+</html>
