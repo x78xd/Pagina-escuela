@@ -274,29 +274,24 @@
         }
 
         /* Vision y Misión Section */
+        /* Vision y Misión Section */
         .vision-mision {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
+            flex-wrap: wrap; /* Permite saltar a nueva línea en móvil */
             padding: 3rem 5%;
             background-color: var(--light-color);
         }
 
-        .vision, .mision {
-            flex: 1;
+        .vision,
+        .mision {
+            flex: 1 1 40%; /* Cada uno ocupa ~40% en desktop */
             text-align: center;
+            margin-bottom: 2rem;
         }
 
-        .vision h2, .mision h2 {
-            font-size: 1.5rem; /* Smaller than the existing section titles */
-            margin-bottom: 1rem;
-        }
 
-        .vision p, .mision p {
-            font-size: 1rem; /* Smaller than the existing paragraph text */
-            line-height: 1.6;
-            margin-bottom: 0;
-        }
 
         .logo-container {
             flex: 1;
@@ -308,7 +303,7 @@
         .logo1 {
             max-width: 100%;
             height: auto;
-            padding: 1rem; /* Optional: Add padding for the logo */
+            padding: 0.1rem; /* Optional: Add padding for the logo */
         }
 
         /* Calendario */
@@ -683,12 +678,10 @@
     <!-- Vision y Misión -->
     <section class="vision-mision" id="vision-mision">
         <div class="vision">
-            <h2>Vision</h2>
+            <h2>Visión</h2>
             <p>Esta institucion Educativa es un espacio donde los alumnos logran una formacion integral y el desarrollo de habilidades para convivir armonialmente mediante acciones compartidas entre la escuela y la familia con el apoyo de las instalaciones gubernamentales y algunas organizaciones de la sociedad civil con el fin de crear ciudades libres responsables y valiosos que enriquezcan la humanidad del siglo XXI.</p>
         </div>
-        <div class="logo-container">
-            <img src="unnamed (1)(1).webp(1).webp" alt="Logo Escuela" class="logo1">
-        </div>
+        
         <div class="mision">
             <h2>Misión</h2>
             <p>Ser una comunidad de aprendizaje donde sse brindan una educacion integral y humanista como marco del desarrolllo de las capacidades de nuestros estudiantes en un ambiente seguro donde se pontencian los valores y respetan sus caracteristicas individuales y colectivas formando alumnos creativos y reflexivos con una vision emprendedora para el exito.</p>
