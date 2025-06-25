@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 :root {
@@ -17,6 +17,8 @@ body {
     background-color: #f5f5f5;
     overflow-x: hidden;
 }
+
+
 
 /* Barra de navegación */
 nav {
@@ -97,10 +99,11 @@ section {
 }
 
 /* Vision y Misión Section */
+/* Vision y Misión */
 .vision-mision {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
     padding: 3rem 5%;
     background-color: var(--light-color);
@@ -108,11 +111,48 @@ section {
 
 .vision,
 .mision {
-    flex: 1 1 40%;
+    flex: 1 1 45%; /* Ajuste para que ocupen más espacio */
     text-align: center;
     margin-bottom: 2rem;
+    padding: 1.5rem;
+    
 }
 
+
+.vision h2,
+.mision h2 {
+    font-size: 1.6rem; /* Tamaño de fuente ligeramente más grande */
+    color: var(--primary-color); /* Color principal para destacar */
+    margin-bottom: 1rem;
+    position: center;
+}
+
+.vision h2::after,
+.mision h2::after {
+    content: "";
+    position: center;
+    width: 50px;
+    height: 3px;
+    background-color: var(--accent-color); /* Línea decorativa */
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.vision p,
+.mision p {
+    font-size: 1rem; /* Tamaño de fuente consistente */
+    line-height: 1.6; /* Espaciado entre líneas para mejorar la legibilidad */
+    color: var(--dark-color); /* Texto oscuro para contraste */
+    text-align: center; /* Justificación para un aspecto más profesional */
+}
+
+@media (max-width: 768px) {
+    .vision,
+    .mision {
+        flex: 1 1 100%; /* Apilar en pantallas pequeñas */
+    }
+}
 /* Calendario */
 .calendario {
     background-color: var(--light-color);
